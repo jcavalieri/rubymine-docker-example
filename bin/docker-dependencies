@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+echo "-- Bundle Installing"
+bundle check || bundle install
+echo "-- Done"
+echo "-- Creating Binstubs"
+bundle binstubs --all
+echo "-- Done"
+
+echo "-- All Done! Exiting"
