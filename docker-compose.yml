@@ -1,22 +1,15 @@
 services:
-  web: &web
-    build:
-      context: .
-      dockerfile: test-project.dev.Dockerfile
-    image: test-project:1
-    command: bash -c "rspec --"
+  app:
+    build: .
     volumes:
-      - ./:/home/ubuntu/test-project/
-      - bundle:/home/ubuntu/bundle
+      - .:/app
+      - bundle:/usr/local/bundle
     environment:
-      BUNDLE_PATH: "/home/ubuntu/bundle"
-      BUNDLE_BIN: "/home/ubuntu/bundle/bin"
-    depends_on:
-      - dependency_build
-  dependency_build:
-    <<: *web
-    depends_on: []
-    command: './bin/docker-dependencies'
+      BUNDLE_PATH: /usr/local/bundle
+    stdin_open: true
+    tty: true
+    command: >
+      tail -f /dev/null
 
 volumes:
-  bundle:
+  bundle:    
